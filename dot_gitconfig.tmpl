@@ -1,0 +1,18 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Raghav Khandelwal
+	email = {{ .email }}
+	signingkey = {{ .gpg_key }}
+
+[gpg]
+	program = gpg
+
+[commit]
+	gpgsign = true
+
+[pull]
+	ff = only
+
+[url "ssh://git@repo.gameskraft.in"]
+        insteadOf = repo.gameskraft.in
+
