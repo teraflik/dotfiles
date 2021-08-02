@@ -10,3 +10,4 @@ brew install --cask visual-studio-code
 brew install --cask google-chrome
 brew install --cask firefox
 brew install --cask vlc
+brew install --cask keepingyouawake
