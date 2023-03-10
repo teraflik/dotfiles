@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/{{ .chezmoi.username }}/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -65,15 +65,21 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git kubectl kube-ps1)
 
 source $ZSH/oh-my-zsh.sh
+
+## User configuration
+
+# enable zsh autocompletions (disable for better performance)
+fpath=($fpath ~/.oh-my-zsh/completions)
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Disable gsts alias from oh-my-zsh's git plugin
-unalias gsts
+# configure kube-ps1 plugin
+KUBE_PS1_SYMBOL_ENABLE=false
+RPS1='$(kube_ps1)'
 
-# Set locale
+# set locale
 export LANG=en_US.UTF-8
 
 # export tty for GPG to allow signing requests
@@ -92,18 +98,3 @@ alias la='ls -lah'
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 complete -o nospace -C /usr/local/bin/vault vault
-
-# terraform workspace switch and apply
-function tfapply(){
-  if [[ "$1" == "stage" ]]
-  then
-    (export SOME_VAR=value; terraform workspace select "${1}" && terraform apply -var-file="tfvars/rc-${1}-in-default.tfvars")
-  elif [[ "$1" == "prod" ]]
-  then
-    (terraform workspace select "${1}" && terraform apply -var-file="tfvars/rc-${1}-in-default.tfvars")
-  fi
-};
-
-# User configuration
-export PATH="/usr/local/opt/mysql-client/bin:$PATH"
-
