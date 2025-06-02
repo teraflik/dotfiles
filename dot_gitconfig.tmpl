@@ -1,14 +1,22 @@
 # This is Git's per-user configuration file.
-[user]
-	name = Raghav Khandelwal
-	email = {{ .email }}
-	signingkey = {{ .gpg_key }}
-
-[gpg]
-	program = gpg
 
 [commit]
 	gpgsign = true
 
+[credential]
+	# If SSH connections are not allowed
+        helper = osxkeychain
+
+[http]
+        postBuffer = 524288000
+
 [pull]
 	ff = only
+
+[push]
+        autoSetupRemote = true
+
+[user]
+	name = Raghav Khandelwal
+	email = {{ .email }}
+	signingkey = {{ .gpg_key }}
